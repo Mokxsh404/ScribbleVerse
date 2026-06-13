@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>ScribbleVerse Canvas Prototype</title>
+    <style>
+        body { font-family: sans-serif; background: #faf8f5; padding: 20px; }
+        canvas { border: 1px solid #ccc; background: white; }
+    </style>
+</head>
+<body>
+    <h1>ScribbleVerse Prototype</h1>
+    <canvas id="sketchpad" width="600" height="400"></canvas>
+    <div>
+        <button id="clear">Clear</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('sketchpad');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        canvas.addEventListener('mousedown', () => drawing = true);
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mousemove', (e) => {
+            if (!drawing) return;
+            const r = canvas.getBoundingClientRect();
+            ctx.fillStyle = '#000';
+            ctx.fillRect(e.clientX - r.left, e.clientY - r.top, 5, 5);
+        });
+        document.getElementById('clear').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    </script>
+</body>
+</html>
