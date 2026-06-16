@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScribbleVerse — Where Doodles Dissolve into Poetry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Lora:ital,wght@0,400..700;1,400..700&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-main">
+                <div class="logo-area">
+                    <i class="fa-solid fa-feather-pointed ink-logo"></i>
+                    <h1 class="app-title">ScribbleVerse</h1>
+                </div>
+                <div class="control-group">
+                    <button id="btn-audio-toggle" class="btn-tactile small active">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span class="audio-text">Sound ON</span>
+                    </button>
+                    <button id="btn-api-settings" class="btn-tactile small">
+                        <i class="fa-solid fa-key"></i> Settings
+                    </button>
+                </div>
+            </div>
+            <div class="app-subtitle">Where doodles dissolve into poetry</div>
+        </header>
+        <main class="desk-workspace">
+            <div class="workspace-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-pen-fancy"></i> Sketchpad</h2>
+                    <div id="drawing-stats" class="tool-status">Blank Paper</div>
+                </div>
+                
+                <div class="canvas-wrapper">
+                    <canvas id="sketchpad"></canvas>
+                    <div id="upload-overlay" class="upload-overlay hidden">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Drop image here</p>
+                    </div>
+                </div>
+                <input type="file" id="image-upload-input" accept="image/*" style="display: none;">
+                
+                <div class="sketchpad-controls">
+                    <div class="control-row">
+                        <div class="control-group">
+                            <span class="group-label">Brush</span>
+                            <div id="brush-selector" class="control-group">
+                                <button class="btn-tool active" data-brush="fountain">
+                                    <i class="fa-solid fa-pen-nib"></i> Fountain
+                                </button>
+                                <button class="btn-tool" data-brush="calligraphy">
+                                    <i class="fa-solid fa-signature"></i> Calligraphy
+                                </button>
+                                <button class="btn-tool" data-brush="charcoal">
+                                    <i class="fa-solid fa-brush"></i> Charcoal
+                                </button>
+                                <button class="btn-tool" data-brush="eraser">
+                                    <i class="fa-solid fa-eraser"></i> Eraser
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group size-group">
+                            <span class="group-label">Size</span>
+                            <input type="range" id="brush-size" class="slider-tactile" min="1" max="20" value="4">
+                            <span id="brush-size-val" class="num-indicator">4px</span>
+                        </div>
+                    </div>
+                    
+                    <div class="control-row">
+                        <div class="control-group">
+                            <span class="group-label">Ink</span>
+                            <div class="ink-wells">
+                                <div class="ink-well active" data-color="#242220" style="background-color: var(--ink-black);" title="Carbon Black"></div>
+                                <div class="ink-well" data-color="#4F3B2F" style="background-color: var(--ink-sepia);" title="Walnut Sepia"></div>
+                                <div class="ink-well" data-color="#1D2E45" style="background-color: var(--ink-indigo);" title="Indigo Wash"></div>
+                                <div class="ink-well" data-color="#A64B2A" style="background-color: var(--ink-terracotta);" title="Terracotta"></div>
+                                <div class="ink-well" data-color="#3F5E4D" style="background-color: var(--ink-sage);" title="Sage Green"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <button id="btn-upload-image" class="btn-action" title="Upload Image">
+                                <i class="fa-solid fa-image"></i>
+                            </button>
+                            <button id="btn-undo" class="btn-action" title="Undo" disabled>
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                            <button id="btn-redo" class="btn-action" title="Redo" disabled>
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
+                            <button id="btn-clear" class="btn-action warning" title="Clear Canvas">
+                                <i class="fa-solid fa-trash-can"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="trigger-container">
+                    <button id="btn-generate" class="btn-primary-generate">
+                        <i class="fa-solid fa-feather-pointed"></i> Dissolve Ink into Verse
+                    </button>
+                </div>
+            </div>
+            <div class="workspace-card poetry-section">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-scroll"></i> Composed Verse</h2>
+                    <div class="tool-status">Manuscript</div>
+                </div>
+                
+                <div class="poetry-sheet-wrapper">
+                    <div class="paper-sheet">
+                        <div class="poetry-content">
+                            <div id="poetry-loader" class="poetry-loader hidden">
+                                <div class="ink-droplet-loader"></div>
+                                <div class="loader-status">Reading ink patterns...</div>
+                            </div>
+                            <div id="poetry-display-area" class="placeholder-verse">
+                                <i class="fa-solid fa-feather"></i>
+                                <h3>Paper is Empty</h3>
+                                <p>Sketch your thoughts on the left, or upload an image, then trigger the ink to generate poetry.</p>
+                            </div>
+                            <div id="typed-poem-container" class="typed-poem-container hidden">
+                                <h3 id="typed-title" class="typed-title"></h3>
+                                <div id="typed-body" class="typed-body"></div>
+                                <div id="poem-signature" class="poem-meta-signature"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="poetry-actions" class="poetry-actions" style="display: none;">
+                    <button id="btn-speak-poem" class="btn-tactile small">
+                        <i class="fa-solid fa-volume-high"></i> <span id="speak-btn-text">Speak Poem</span>
+                    </button>
+                    <button id="btn-copy-text" class="btn-tactile small">
+                        <i class="fa-regular fa-copy"></i> Copy Poem
+                    </button>
+                    <button id="btn-save-archive" class="btn-tactile small success">
+                        <i class="fa-solid fa-box-archive"></i> Save to Gallery
+                    </button>
+                    <button id="btn-export-card" class="btn-tactile small primary">
+                        <i class="fa-solid fa-download"></i> Export Card
+                    </button>
+                </div>
+            </div>
+        </main>
+        <section class="gallery-section">
+            <button id="btn-gallery-toggle" class="gallery-toggle">
+                <h3><i class="fa-solid fa-images"></i> Sketchbook Archive (<span id="archive-count">0</span>)</h3>
+                <i id="gallery-toggle-icon" class="fa-solid fa-chevron-up toggle-icon gallery-toggle-icon"></i>
+            </button>
+            <div id="gallery-content" class="gallery-content collapsed">
+                <div id="gallery-grid" class="gallery-grid">
+                    <div class="gallery-empty">
+                        <i class="fa-solid fa-box-open"></i>
+                        <p>No saved works yet. Generate a poem, then click "Save to Gallery" to fill your sketchbook archive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="api-modal" class="modal-overlay hidden">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-key"></i> API Configuration</h3>
+                    <button id="btn-close-modal" class="btn-modal-close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>ScribbleVerse uses <strong>Hack Club AI</strong> to analyze your sketches with GPT-4o Vision.</p>
+                    <div class="quota-notice">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>if the model is not working probbably it ran out of its quota if u wanna still try it go to <a href="https://ai.hackclub.com" target="_blank" rel="noopener">ai.hackclub</a> and paste the api here</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="gemini-key-input">Your Hack Club AI Key (optional)</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="gemini-key-input" placeholder="sk-hc-v1-...">
+                            <button id="btn-toggle-key-visibility" class="btn-toggle-visible" type="button">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="help-text">Leave blank to use the default key. Your key is stored locally in your browser only.</span>
+                    </div>
+                    <div id="key-status-box" class="status-indicator-box">
+                        <span class="status-dot green"></span>
+                        <span class="status-text">Using default key</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-clear-key" class="btn-tactile danger small">Clear Key</button>
+                    <button id="btn-save-key" class="btn-tactile primary small">Save Config</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

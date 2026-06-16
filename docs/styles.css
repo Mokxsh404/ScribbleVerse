@@ -1,0 +1,1209 @@
+/* ==========================================================================
+   ScribbleVerse: Natural, Artisanal Design System
+   ========================================================================== */
+
+/* Base Custom Properties */
+:root {
+    /* Warm Earthy Color Palette */
+    --color-bg-desk: #ECE6DD;        /* Warm studio table top */
+    --color-bg-paper: #FDFBF7;       /* Aged cream paper sheet */
+    --color-bg-paper-darker: #F5EFEB;/* Shaded paper background */
+    --color-text-main: #36322E;      /* Charcoal ink */
+    --color-text-muted: #6E675F;     /* Faded walnut */
+    
+    /* Ink Varieties */
+    --ink-black: #242220;
+    --ink-sepia: #4F3B2F;
+    --ink-indigo: #1D2E45;
+    --ink-terracotta: #A64B2A;
+    --ink-sage: #3F5E4D;
+    
+    /* Tactile accents */
+    --color-accent-gold: #C5A059;    /* Antique bronze/gold */
+    --color-accent-gold-dark: #A37F3D;
+    --color-border: #D1C8BC;         /* Soft paper edge border */
+    --color-border-dark: #7A7065;    /* Ink lines */
+    --color-danger: #8C3A35;         /* Burnt red for warnings */
+    --color-success: #3A664E;        /* Forest green for confirmation */
+    
+    /* Typography */
+    --font-ui: 'Lora', Georgia, serif;
+    --font-body: 'EB Garamond', Times, serif;
+    --font-typewriter: 'Special Elite', Courier, monospace;
+    
+    /* Shadow systems for physical paper depth */
+    --shadow-paper: 0 4px 20px rgba(79, 70, 60, 0.12), 
+                    0 2px 5px rgba(79, 70, 60, 0.08), 
+                    inset 0 0 40px rgba(255, 255, 255, 0.6);
+    --shadow-paper-hover: 0 8px 30px rgba(79, 70, 60, 0.18), 
+                          0 4px 10px rgba(79, 70, 60, 0.1);
+    --shadow-tactile: 0 2px 4px rgba(79, 70, 60, 0.15);
+    --shadow-tactile-active: inset 0 2px 3px rgba(79, 70, 60, 0.25);
+    
+    --transition-speed: 0.25s;
+}
+
+/* Reset & Base Elements */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg-desk);
+    color: var(--color-text-main);
+    font-family: var(--font-ui);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    /* Soft textured desk background */
+    background-image: 
+        radial-gradient(rgba(79, 70, 60, 0.04) 1px, transparent 0),
+        radial-gradient(rgba(79, 70, 60, 0.04) 1px, transparent 0);
+    background-size: 16px 16px;
+    background-position: 0 0, 8px 8px;
+}
+
+/* Scrollbar Styling (Mechanical/Paper style) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-bg-paper-darker);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+}
+
+/* Main Container Layout */
+.app-container {
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 30px 20px 80px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+}
+
+/* Header Styling */
+.app-header {
+    text-align: center;
+    border-bottom: 1px double var(--color-border);
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 auto; /* Default centering */
+}
+
+/* When settings exist, shift spacing gracefully */
+.header-main .logo-area {
+    margin: 0;
+}
+
+.ink-logo {
+    font-size: 1.8rem;
+    color: var(--color-accent-gold-dark);
+    display: inline-block;
+    transform: rotate(-15deg);
+    animation: feather-drift 4s ease-in-out infinite alternate;
+}
+
+@keyframes feather-drift {
+    0% { transform: rotate(-15deg) translateY(0); }
+    100% { transform: rotate(-8deg) translateY(-3px); }
+}
+
+.app-title {
+    font-family: var(--font-ui);
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--color-text-main);
+    position: relative;
+    display: inline-block;
+}
+
+.app-title::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+}
+
+.app-subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-top: 12px;
+    text-align: center;
+}
+
+/* Tactile Buttons System */
+.btn-tactile {
+    background-color: var(--color-bg-paper);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border-dark);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: var(--font-ui);
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: var(--shadow-tactile);
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-tactile:hover {
+    background-color: var(--color-bg-paper-darker);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(79, 70, 60, 0.15);
+}
+
+.btn-tactile:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-tactile-active);
+}
+
+.btn-tactile.small {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+.btn-tactile.danger {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+}
+.btn-tactile.danger:hover {
+    background-color: #FDF3F2;
+}
+
+.btn-tactile.success {
+    border-color: var(--color-success);
+    color: var(--color-success);
+}
+.btn-tactile.success:hover {
+    background-color: #F3FAF6;
+}
+
+.btn-tactile.primary {
+    background-color: var(--color-bg-paper-darker);
+    border-color: var(--color-accent-gold-dark);
+    color: var(--color-text-main);
+    font-weight: 600;
+}
+.btn-tactile.primary:hover {
+    background-color: var(--color-bg-paper);
+    border-color: var(--color-accent-gold);
+}
+
+/* Desk Workspace Grid */
+.desk-workspace {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    align-items: start;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .desk-workspace {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+/* Physical Notebook Sheets */
+.workspace-card {
+    background-color: var(--color-bg-paper);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow: var(--shadow-paper);
+    border: 1px solid var(--color-border);
+    position: relative;
+    transition: box-shadow 0.3s ease;
+}
+
+.workspace-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 6px;
+    pointer-events: none;
+    box-shadow: inset 0 0 100px rgba(79, 70, 60, 0.05); /* Vignette edge shading */
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.card-header h2 {
+    font-family: var(--font-ui);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header h2 i {
+    color: var(--color-accent-gold-dark);
+}
+
+.tool-status {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+}
+
+/* Canvas Sketchpad Elements */
+.canvas-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: #FAF6F0; /* Slightly different tone for drawing surface */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: inset 1px 2px 6px rgba(79, 70, 60, 0.08);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: crosshair;
+}
+
+canvas#sketchpad {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+    background-color: transparent;
+    touch-action: none; /* Prevent scrolling while drawing on mobile */
+}
+
+/* Sketchpad Controls Panel */
+.sketchpad-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.group-label {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    min-width: 45px;
+}
+
+/* Tools Buttons (Pen, Brush, Charcoal, Eraser) */
+.btn-tool {
+    background-color: var(--color-bg-paper-darker);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+}
+
+.btn-tool:hover {
+    background-color: var(--color-bg-paper);
+    color: var(--color-text-main);
+    border-color: var(--color-text-muted);
+}
+
+.btn-tool.active {
+    background-color: var(--color-bg-paper);
+    color: var(--color-text-main);
+    border-color: var(--color-accent-gold-dark);
+    box-shadow: var(--shadow-tactile-active), 0 0 0 2px rgba(197, 160, 89, 0.2);
+    font-weight: 600;
+}
+
+/* Canvas Undo/Redo/Clear Actions */
+.btn-action {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.15s ease;
+}
+
+.btn-action:hover:not(:disabled) {
+    border-color: var(--color-text-main);
+    color: var(--color-text-main);
+    background-color: var(--color-bg-paper-darker);
+}
+
+.btn-action:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.btn-action.warning {
+    width: auto;
+    padding: 0 12px;
+    color: var(--color-danger);
+    border-color: var(--color-border);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-action.warning:hover:not(:disabled) {
+    background-color: #FDF3F2;
+    border-color: var(--color-danger);
+}
+
+/* Size Slider */
+.size-group {
+    flex-grow: 1;
+    max-width: 200px;
+}
+
+.slider-tactile {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-border);
+    outline: none;
+}
+
+.slider-tactile::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-text-main);
+    border: 2px solid var(--color-bg-paper);
+    cursor: pointer;
+    box-shadow: var(--shadow-tactile);
+    transition: transform 0.1s ease;
+}
+
+.slider-tactile::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    background: var(--color-accent-gold-dark);
+}
+
+.num-indicator {
+    font-family: var(--font-typewriter);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    min-width: 35px;
+    text-align: right;
+}
+
+/* Color Ink Wells */
+.ink-wells {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.ink-well {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--color-bg-paper);
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2), inset 0 0 4px rgba(0,0,0,0.3);
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ink-well:hover {
+    transform: scale(1.2) translateY(-2px);
+}
+
+.ink-well.active {
+    transform: scale(1.25);
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 2px 6px rgba(79, 70, 60, 0.3), inset 0 0 4px rgba(0,0,0,0.3);
+}
+
+.ink-well::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+}
+
+/* Generate Call to Action */
+.trigger-container {
+    margin-top: 25px;
+}
+
+.btn-primary-generate {
+    width: 100%;
+    background-color: var(--color-text-main);
+    color: var(--color-bg-paper);
+    border: 1px solid var(--color-text-main);
+    padding: 14px 20px;
+    font-family: var(--font-ui);
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: var(--shadow-tactile);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary-generate:hover {
+    background-color: #3b3733;
+    border-color: #3b3733;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(36, 34, 32, 0.25);
+}
+
+.btn-primary-generate:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-tactile-active);
+}
+
+/* Poetry Section & Paper Sheet */
+.poetry-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.poetry-sheet-wrapper {
+    flex-grow: 1;
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-bg-paper-darker);
+    padding: 10px;
+    box-shadow: inset 1px 2px 6px rgba(79, 70, 60, 0.08);
+}
+
+/* The Paper Sheet inside the frame */
+.paper-sheet {
+    background-color: var(--color-bg-paper);
+    min-height: 480px;
+    padding: 35px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(79, 70, 60, 0.1);
+    background-image: 
+        linear-gradient(rgba(197, 160, 89, 0.06) 1px, transparent 1px),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+    background-size: 100% 28px, 150px 150px; /* Classic writing guidelines and repeating paper noise */
+    background-position-y: 6px, 0;
+}
+
+.poetry-content {
+    position: relative;
+    z-index: 2;
+    min-height: 400px;
+}
+
+/* Loading animations */
+.poetry-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(253, 251, 247, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 10;
+}
+
+.ink-droplet-loader {
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-text-main);
+    border-radius: 50% 0 50% 50%;
+    transform: rotate(-45deg);
+    animation: drip-pulse 1.8s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes drip-pulse {
+    0% {
+        transform: rotate(-45deg) scale(0.9);
+        box-shadow: 0 0 0 0 rgba(36, 34, 32, 0.4);
+    }
+    50% {
+        transform: rotate(-45deg) scale(1.1) translateY(4px);
+        box-shadow: 0 0 0 10px rgba(36, 34, 32, 0);
+    }
+    100% {
+        transform: rotate(-45deg) scale(0.9);
+        box-shadow: 0 0 0 0 rgba(36, 34, 32, 0);
+    }
+}
+
+.loader-status {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Poetry Display States */
+.placeholder-verse {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--color-text-muted);
+}
+
+.placeholder-verse i {
+    font-size: 2.5rem;
+    color: var(--color-accent-gold);
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: feather-drift 3s infinite alternate;
+}
+
+.placeholder-verse h3 {
+    font-family: var(--font-ui);
+    font-size: 1.5rem;
+    color: var(--color-text-main);
+    margin-bottom: 12px;
+}
+
+.placeholder-verse p {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    max-width: 320px;
+    margin: 0 auto 20px auto;
+}
+
+.placeholder-verse .api-note {
+    font-size: 0.95rem;
+    max-width: 350px;
+    border-top: 1px dashed var(--color-border);
+    padding-top: 15px;
+    color: var(--color-text-muted);
+}
+
+/* Typed Poetry Styles */
+.typed-poem-container {
+    color: var(--color-text-main);
+    font-family: var(--font-typewriter);
+    line-height: 1.75;
+    white-space: pre-wrap; /* Keeps line breaks exactly as input */
+    font-size: 1.05rem;
+}
+
+.typed-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--ink-black);
+    line-height: 1.4;
+    border-bottom: 1px dashed var(--color-border);
+    padding-bottom: 8px;
+}
+
+.typed-body {
+    margin-bottom: 30px;
+    letter-spacing: -0.2px;
+}
+
+.typed-body p {
+    margin-bottom: 18px;
+}
+
+.poem-meta-signature {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    text-align: right;
+    margin-top: 40px;
+    border-top: 1px solid rgba(79, 70, 60, 0.1);
+    padding-top: 10px;
+}
+
+/* Wet Ink Bleeding Letter Animation */
+.ink-char {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(1.5px);
+    transform: scale(1.1);
+    animation: inkBleed 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes inkBleed {
+    0% {
+        opacity: 0;
+        filter: blur(1.5px);
+        transform: scale(1.1);
+        text-shadow: 0 0 4px rgba(36, 34, 32, 0.7);
+    }
+    30% {
+        opacity: 0.75;
+        filter: blur(0.8px);
+        transform: scale(1.02);
+        text-shadow: 0 0 2px rgba(36, 34, 32, 0.9);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: scale(1);
+        text-shadow: none;
+    }
+}
+
+/* Custom typewriter cursor */
+.typewriter-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.25em;
+    background-color: var(--color-text-main);
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: cursor-blink 0.8s steps(2, start) infinite;
+}
+
+@keyframes cursor-blink {
+    to { visibility: hidden; }
+}
+
+/* Action block below poetry sheet */
+.poetry-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Sketchbook Archive Gallery (Bottom Drawer) */
+.gallery-section {
+    background-color: var(--color-bg-paper);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+    border: 1px solid var(--color-border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -4px 15px rgba(79, 70, 60, 0.08);
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 1200px;
+    z-index: 50;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.gallery-toggle {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--color-text-main);
+    border-bottom: 1px solid var(--color-bg-paper-darker);
+    outline: none;
+}
+
+.gallery-toggle h3 {
+    font-family: var(--font-ui);
+    font-size: 1.15rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gallery-toggle h3 i {
+    color: var(--color-accent-gold-dark);
+}
+
+.toggle-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.gallery-content {
+    max-height: 0;
+    overflow-y: auto;
+    transition: max-height 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background-color: var(--color-bg-paper-darker);
+}
+
+.gallery-content.collapsed {
+    max-height: 0;
+}
+
+.gallery-content.expanded {
+    max-height: 380px;
+}
+
+.gallery-section.expanded-height {
+    /* Slightly shifts up to allow viewing content */
+}
+
+.gallery-toggle-icon.rotated {
+    transform: rotate(180deg);
+}
+
+/* Gallery Grid & Vintage Polaroid/Journal cards */
+.gallery-grid {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.gallery-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--color-text-muted);
+}
+
+.gallery-empty i {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+.gallery-empty p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+}
+
+/* Individual Polaroid Card */
+.archive-card {
+    background-color: var(--color-bg-paper);
+    border: 1px solid var(--color-border);
+    padding: 14px;
+    border-radius: 4px;
+    box-shadow: var(--shadow-tactile);
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    position: relative;
+}
+
+.archive-card:hover {
+    transform: translateY(-3px) rotate(1deg);
+    box-shadow: var(--shadow-paper-hover);
+    border-color: var(--color-accent-gold-dark);
+}
+
+.archive-card:nth-child(even):hover {
+    transform: translateY(-3px) rotate(-1deg);
+}
+
+.archive-card-image {
+    width: 100%;
+    height: 160px;
+    background-color: #FAF6F0;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.archive-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.archive-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.archive-card-title {
+    font-family: var(--font-ui);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.archive-card-snippet {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+}
+
+.archive-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    font-size: 0.75rem;
+    font-family: var(--font-typewriter);
+    color: var(--color-text-muted);
+    border-top: 1px dashed var(--color-border);
+    padding-top: 8px;
+}
+
+.btn-card-delete {
+    background: transparent;
+    border: none;
+    color: var(--color-danger);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.15s ease;
+    padding: 2px 6px;
+}
+
+.btn-card-delete:hover {
+    opacity: 1;
+}
+
+/* Modal Overlay System */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(79, 70, 60, 0.4);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-card {
+    background-color: var(--color-bg-paper);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+    border-radius: 6px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    border: 1px solid var(--color-border-dark);
+    display: flex;
+    flex-direction: column;
+    animation: modal-enter 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modal-enter {
+    0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-family: var(--font-ui);
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-main);
+}
+
+.btn-modal-close {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: color 0.15s ease;
+}
+
+.btn-modal-close:hover {
+    color: var(--color-text-main);
+}
+
+.modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-body p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    background-color: var(--color-bg-paper-darker);
+    border: 1px solid var(--color-border-dark);
+    border-radius: 4px;
+    padding: 10px 40px 10px 12px;
+    font-family: var(--font-typewriter);
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    outline: none;
+}
+
+.input-wrapper input:focus {
+    border-color: var(--color-accent-gold-dark);
+    box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+}
+
+.btn-toggle-visible {
+    position: absolute;
+    right: 8px;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 4px;
+}
+
+.btn-toggle-visible:hover {
+    color: var(--color-text-main);
+}
+
+.help-text {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.status-indicator-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: var(--color-bg-paper-darker);
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.status-dot.grey { background-color: #9E9E9E; }
+.status-dot.green { background-color: var(--color-success); }
+
+.status-text {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--color-text-muted);
+}
+
+.modal-footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Hide helper class */
+.hidden {
+    display: none !important;
+}
+
+.hidden-canvas {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
+.upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(253, 251, 247, 0.92);
+    border: 3px dashed var(--color-accent-gold);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    z-index: 5;
+    pointer-events: none;
+    animation: overlay-pulse 1.5s ease-in-out infinite alternate;
+}
+
+.upload-overlay i {
+    font-size: 2.5rem;
+    color: var(--color-accent-gold-dark);
+}
+
+.upload-overlay p {
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+@keyframes overlay-pulse {
+    0% { border-color: var(--color-accent-gold); background-color: rgba(253, 251, 247, 0.88); }
+    100% { border-color: var(--color-accent-gold-dark); background-color: rgba(253, 251, 247, 0.96); }
+}
+
+#btn-upload-image {
+    width: auto;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-accent-gold-dark);
+    border-color: var(--color-accent-gold);
+    transition: all 0.2s ease;
+}
+
+#btn-upload-image:hover:not(:disabled) {
+    background-color: rgba(197, 160, 89, 0.1);
+    border-color: var(--color-accent-gold-dark);
+    color: var(--color-text-main);
+    transform: translateY(-1px);
+}
+
+/* Speak Poem button states */
+#btn-speak-poem.speaking {
+    background-color: var(--color-text-main);
+    color: var(--color-bg-paper);
+    border-color: var(--color-text-main);
+}
+
+#btn-speak-poem.speaking i {
+    animation: speak-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes speak-pulse {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Image loaded indicator on canvas */
+.canvas-wrapper.has-image {
+    box-shadow: inset 1px 2px 6px rgba(79, 70, 60, 0.08), 0 0 0 2px rgba(197, 160, 89, 0.3);
+}
