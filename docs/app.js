@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentBrush = 'fountain';
     let currentSize = 4;
     let currentColor = '#242220';
-    let soundEnabled = true;
+    let soundEnabled = true; // typewriter sound toggle
     let isTyping = false;
     let typingTimeout = null;
     
@@ -1519,4 +1519,5 @@ document.addEventListener('DOMContentLoaded', () => {
     
     loadKeyConfigState();
 });
+
 
