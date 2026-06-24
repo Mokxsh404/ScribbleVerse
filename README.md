@@ -14,6 +14,8 @@ oh and you can upload images too if drawing isnt your thing.
 
 the frontend is just html/css/js, no frameworks. the backend is a tiny flask server that keeps the api key hidden so nobody can steal it.
 
+try it 👉 https://scribbleverse-1.onrender.com/
+
 ---
 
 ### features
