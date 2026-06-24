@@ -1,14 +1,14 @@
-﻿
+
 document.addEventListener('DOMContentLoaded', () => {
     // If hosting the HTML/JS frontend on GitHub Pages/Vercel/Netlify and the Python backend on a cloud service,
     // paste your hosted Flask backend URL here (e.g., "https://your-app.onrender.com").
     // Keep it as "" if hosting both on the same server (relative requests).
     const BACKEND_URL = "";
-    let isDrawing = false; // drawing state
+    let isDrawing = false;
     let currentBrush = 'fountain';
     let currentSize = 4;
     let currentColor = '#242220';
-    let soundEnabled = true; // typewriter sound toggle
+    let soundEnabled = true;
     let isTyping = false;
     let typingTimeout = null;
     
@@ -542,7 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Image Upload Functionality ---
     
-    // Click upload button â†’ trigger file input
+    // Click upload button → trigger file input
     btnUploadImage.addEventListener('click', () => {
         imageUploadInput.click();
     });
@@ -600,13 +600,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 let drawW, drawH, drawX, drawY;
                 if (imgAspect > canvasAspect) {
-                    // Image is wider â€” fit to width
+                    // Image is wider — fit to width
                     drawW = canvasW;
                     drawH = canvasW / imgAspect;
                     drawX = 0;
                     drawY = (canvasH - drawH) / 2;
                 } else {
-                    // Image is taller â€” fit to height
+                    // Image is taller — fit to height
                     drawH = canvasH;
                     drawW = canvasH * imgAspect;
                     drawX = (canvasW - drawW) / 2;
@@ -837,7 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
             messages: [
                 {
                     role: "system",
-                    content: "You are ScribbleVerse â€” a deeply perceptive, literary poet who transforms visual art into vivid, emotionally resonant poetry. " +
+                    content: "You are ScribbleVerse — a deeply perceptive, literary poet who transforms visual art into vivid, emotionally resonant poetry. " +
                              "You have the eye of a gallery critic and the soul of a romantic poet. " +
                              "You never write generic poems. Every poem you create is intimately tied to the SPECIFIC visual details you observe: " +
                              "the exact colors, shapes, objects, text, figures, textures, composition, and emotional atmosphere of the artwork. " +
@@ -850,11 +850,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         {
                             type: "text",
                             text: "Study the attached image very carefully. Follow these steps:\n\n" +
-                                  "1. VISUAL ANALYSIS: Look closely at EVERY detail â€” identify all objects, figures, text/words, colors (name exact shades), shapes, patterns, textures, spatial composition (what's in foreground vs background), and the overall mood/atmosphere.\n\n" +
-                                  "2. DEFINITION: Write a vivid 2-3 sentence poetic description of what you see. Be SPECIFIC â€” name the actual objects, colors, and elements. Don't be vague.\n\n" +
+                                  "1. VISUAL ANALYSIS: Look closely at EVERY detail — identify all objects, figures, text/words, colors (name exact shades), shapes, patterns, textures, spatial composition (what's in foreground vs background), and the overall mood/atmosphere.\n\n" +
+                                  "2. DEFINITION: Write a vivid 2-3 sentence poetic description of what you see. Be SPECIFIC — name the actual objects, colors, and elements. Don't be vague.\n\n" +
                                   "3. POEM: Write a rich, emotionally deep poem of 3-4 stanzas (4-6 lines each) that is DIRECTLY inspired by the specific visual content. " +
                                   "The poem MUST reference concrete details from the image (specific colors you see, shapes, objects, any text/words visible, the mood conveyed). " +
-                                  "Use vivid sensory language â€” sight, touch, sound, smell. Use metaphor and symbolism grounded in what you actually see. " +
+                                  "Use vivid sensory language — sight, touch, sound, smell. Use metaphor and symbolism grounded in what you actually see. " +
                                   "Do NOT write a generic poem that could apply to any image. Every line should feel like it could ONLY have been written about THIS specific image.\n\n" +
                                   "Format your response EXACTLY like this:\n" +
                                   "TITLE: [a evocative, specific title rooted in what you see]\n" +
@@ -863,7 +863,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                   "[stanza 1]\n\n" +
                                   "[stanza 2]\n\n" +
                                   "[stanza 3]\n\n" +
-                                  "[stanza 4 â€” optional but encouraged]"
+                                  "[stanza 4 — optional but encouraged]"
                         },
                         {
                             type: "image_url",
@@ -1519,5 +1519,3 @@ document.addEventListener('DOMContentLoaded', () => {
     
     loadKeyConfigState();
 });
-
-
